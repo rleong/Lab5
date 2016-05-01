@@ -25,6 +25,20 @@
 					<mainClass>poker.app.MainApp</mainClass>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+                <archive>
+                    <index>true</index>
+                    <manifest>
+                        <mainClass> ??? </mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
 
 
 		</plugins>

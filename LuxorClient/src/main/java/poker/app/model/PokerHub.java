@@ -82,14 +82,15 @@ public class PokerHub extends Hub {
 				resetOutput();
 				
 				//TODO - Lab #5 Do all the things you need to do to start a game!!
-				pokerEnums.eGame gameName;
-				int gameRules;
+				//pokerEnums.eGame gameName;
+				//int gameRules;
 				//	Determine which game is selected (from RootTableController)
 				//		1 line of code
-				gameName = eGame.valueOf(RootTable.getRuleName());
+				//gameName = eGame.valueOf(RootTable.getRuleName());
+				eGame game = act.geteGame();
 				//	Get the Rule based on the game selected
 				//		1 line of code
-				Rule rle = new Rule(act.geteGame());
+				Rule rle = new Rule(game);
 			
 				//	The table should eventually allow multiple instances of 'GamePlay'...
 				//		Each game played is an instance of 'GamePlay'...
@@ -101,7 +102,7 @@ public class PokerHub extends Hub {
 				
 				//	Start a new instance of GamePlay, based on rule set and Dealer (Player.PlayerID)
 				//		1 line of code
-				HubGamePlay = new GamePlay(Rules, p);
+				HubGamePlay = new GamePlay(rle, p);
 				
 				
 				//	There are 1+ players seated at the table... add these players to the game
@@ -126,7 +127,7 @@ public class PokerHub extends Hub {
 				//	Set PlayerID_NextToAct in GamePlay (next player after Dealer)
 				//		1 line of code
 				
-				HubGamePlay.setPlayerNextToAct(HubGamePlay.ComputePlayerNextToAct(p.getiPlayerPosition()));
+				HubGamePlay.setPlayerNextToAct(HubGamePlay.getPlayerByPosition(GamePlay.NextPosition(p.getiPlayerPosition(), GamePlay.GetOrder(p.getiPlayerPosition()))));
 				
 				System.out.println("Dealer:" + p.getPlayerName());
 				System.out.println("Next to Act:" + HubGamePlay.getPlayerNextToAct().getPlayerName());
@@ -142,12 +143,12 @@ public class PokerHub extends Hub {
 				
 				HubGamePlay.setDrawCnt(eDrawCount.FIRST);
 				
-				try{
-					DealCards(HubGamePlay.getRule().getCardDraw(HubGamePlay));
-				}catch (DeckException e) {
-					e.printStackTrace();
-					sendToAll(e);
-				}
+//				try{
+//					//DealCards(HubGamePlay.getRule().getCardDraw(HubGamePlay));
+//				}catch (DeckException e) {
+//					e.printStackTrace();
+//					sendToAll(e);
+//				}
 				
 				//	Send the state of the game back to the players
 				System.out.println("Sending Start Back to Client");
@@ -173,21 +174,21 @@ public class PokerHub extends Hub {
 		}
 
 		//System.out.println("Message Received by Hub");
-		private void DealCards(CardDraw cd) throws DeckException{
-			for(int i = 0;i < cd.getCardCountDrawn().getCardCount(); i++){
-				if(cd.getCardDestination() == eCardDestination.Player){
-					for(int n : HubGamePlay.getiActOrder()){
-						if((HubGamePlay.getPlayerByPosition(n)!=null)
-								&&((HubGamePlay.getPlayerHand(new GamePlayPlayerHand(HubGamePlay.getPlayerByPosition(n)).getHand()))).isFolded() == false){
-							HubGamePlay.getPlayerHand(new GamePlayPlayerHand(HubGamePlay, HubGamePlay.getPlayerByPosition(n)).getHand()).Draw(HubGamePlay.getGameDeck());
-						}
-					}
-				}
-				else if (cd.getCardDestination()==eCardDestination.Community){
-					HubGamePlay.getCommonHand().Draw(HubGamePlay.getGameDeck());
-				}
-			}
-		}
+//		private void DealCards(CardDraw cd) throws DeckException{
+//			for(int i = 0;i < cd.getCardCountDrawn().getCardCount(); i++){
+//				if(cd.getCardDestination() == eCardDestination.Player){
+//					for(int n : HubGamePlay.getiActOrder()){
+//						if((HubGamePlay.getPlayerByPosition(n)!=null)
+//								&&((HubGamePlay.getPlayerHand(new GamePlayPlayerHand(HubGamePlay.getPlayerByPosition(n)).getHand()))).isFolded() == false){
+//							HubGamePlay.getPlayerHand(new GamePlayPlayerHand(HubGamePlay, HubGamePlay.getPlayerByPosition(n)).getHand()).Draw(HubGamePlay.getGameDeck());
+//						}
+//					}
+//				}
+//				else if (cd.getCardDestination()==eCardDestination.Community){
+//					HubGamePlay.getCommonHand().Draw(HubGamePlay.getGameDeck());
+//				}
+//			}
+//		}
 	}
 
 }

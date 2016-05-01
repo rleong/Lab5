@@ -25,7 +25,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import netgame.common.Client;
-import poker.app.model.PokerGameState;
+//import poker.app.model.PokerGameState;
 import poker.app.model.PokerHub;
 import poker.app.view.ClientServerStartController;
 import poker.app.view.PokerTableController;
