@@ -251,12 +251,12 @@ public class PokerTableController {
 		
 		hBoxDeck.getChildren().clear();
 		
-		Image imgB = new Image(getClass().getResourceAsStream("/img/blfh.png"));
-		ImageView imgBottomCard = new ImageView(imgB);
-		imgBottomCard.setPreserveRatio(true);
-		imgBottomCard.setFitWidth(75);
-		imgBottomCard.setFitHeight(75);
-		hBoxDeck.getChildren().add(imgBottomCard);
+		Image imgBtm = new Image(getClass().getResourceAsStream("/img/blfh.png"));
+		ImageView imgBtmCard = new ImageView(imgBtm);
+		imgBtmCard.setPreserveRatio(true);
+		imgBtmCard.setFitWidth(75);
+		imgBtmCard.setFitHeight(75);
+		hBoxDeck.getChildren().add(imgBtmCard);
 		
 		
 		imgViewDealerButtonPos1.setVisible(false);
